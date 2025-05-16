@@ -44,8 +44,8 @@ const Footer = () => {
             <div className="flex gap-4 justify-center items-center">
               <a 
                 href={`https://wa.me/${whatsappNumber}?text=${whatsappMessage}`}
-                target="_blank"
-                rel="noopener noreferrer"
+                target="_blank" 
+                rel="noopener noreferrer" 
                 className="bg-gray-100 hover:bg-green-500 p-2.5 rounded-full transition-all duration-300 transform hover:scale-110 group flex items-center gap-2"
                 aria-label="WhatsApp"
               >
@@ -65,7 +65,7 @@ const Footer = () => {
             </div>
           </div>
         </div>
-
+        
         {/* Divider */}
         <div className="border-t border-gray-200 my-6 max-w-2xl mx-auto"></div>
 
