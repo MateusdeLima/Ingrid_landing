@@ -1,0 +1,69 @@
+import React from 'react';
+import { Award, Clock, Users } from 'lucide-react';
+
+interface AboutSectionProps {
+  scrollY: number;
+}
+
+const AboutSection: React.FC<AboutSectionProps> = ({ scrollY }) => {
+  const isVisible = scrollY > 100;
+  
+  return (
+    <section id="about" className="py-20 bg-dark text-white">
+      <div className="container mx-auto px-4">
+        <div className={`transition-all duration-1000 transform ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'}`}>
+          <h2 className="text-4xl font-bold text-center mb-16 relative">
+            <span className="text-primary">SOBRE</span> A PERSONAL
+            <div className="absolute w-20 h-1 bg-primary bottom-0 left-1/2 transform -translate-x-1/2 mt-2"></div>
+          </h2>
+        </div>
+
+        <div className="flex flex-col md:flex-row items-center">
+          <div className={`md:w-1/2 mb-10 md:mb-0 transition-all duration-1000 delay-300 transform ${isVisible ? 'translate-x-0 opacity-100' : '-translate-x-20 opacity-0'}`}>
+            <img 
+              src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1950&q=80" 
+              alt="Personal Trainer" 
+              className="rounded-lg shadow-xl max-w-md mx-auto border-4 border-primary"
+            />
+          </div>
+          
+          <div className={`md:w-1/2 md:pl-12 transition-all duration-1000 delay-500 transform ${isVisible ? 'translate-x-0 opacity-100' : 'translate-x-20 opacity-0'}`}>
+            <h3 className="text-3xl font-bold mb-6 text-primary">Ingrid Lemos</h3>
+            <p className="text-gray-300 mb-6 leading-relaxed">
+              Com mais de 4 anos de experiência, sou formada em Licenciatura e Bacharelado em Educação Física. 
+              Ao longo da minha trajetória como Personal Trainer, tenho me dedicado a promover o bem-estar e a saúde das pessoas, 
+              ajudando cada aluno a alcançar seus objetivos de forma segura e eficiente.
+            </p>
+            <p className="text-gray-300 mb-8 leading-relaxed">
+              Cada aluno é único, devido a isso, monto um plano de treino personalizado de maneira individual, 
+              buscando adaptar a sua necessidade, objetivo e limitações. O meu compromisso é com sua evolução constante, 
+              seja para a perda de peso, ganho de massa muscular ou melhora da qualidade de vida.
+            </p>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="flex flex-col items-center p-4 bg-dark-light rounded-lg shadow-sm">
+                <Award className="text-primary mb-2" size={32} />
+                <h4 className="font-bold text-white">Certificada</h4>
+                <p className="text-gray-300 text-center text-sm">CREF 175457-G/SP</p>
+              </div>
+              
+              <div className="flex flex-col items-center p-4 bg-dark-light rounded-lg shadow-sm">
+                <Clock className="text-primary mb-2" size={32} />
+                <h4 className="font-bold text-white">Experiência</h4>
+                <p className="text-gray-300 text-center text-sm">+4 anos</p>
+              </div>
+              
+              <div className="flex flex-col items-center p-4 bg-dark-light rounded-lg shadow-sm">
+                <Users className="text-primary mb-2" size={32} />
+                <h4 className="font-bold text-white">Alunos</h4>
+                <p className="text-gray-300 text-center text-sm">+100 alunos</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default AboutSection;
