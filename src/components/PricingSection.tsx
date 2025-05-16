@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Dumbbell, Check, X } from 'lucide-react';
+import { Dumbbell, Check, X, MessageCircle } from 'lucide-react';
 
 interface PricingSectionProps {
   scrollY: number;
@@ -9,6 +9,14 @@ const PricingSection: React.FC<PricingSectionProps> = ({ scrollY }) => {
   const isVisible = scrollY > 500;
   
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
+  
+  // Estados para mostrar valores ao clicar nos botões
+  const [showOnline, setShowOnline] = useState<string | null>(null);
+  const [showFuncional, setShowFuncional] = useState<string | null>(null);
+  const [cupomOnline, setCupomOnline] = useState('');
+  const [cupomPersonal, setCupomPersonal] = useState('');
+  const [cupomOnlineValido, setCupomOnlineValido] = useState(false);
+  const [cupomPersonalValido, setCupomPersonalValido] = useState(false);
   
   const allFeatures = [
     "Avaliação física",
@@ -64,6 +72,42 @@ const PricingSection: React.FC<PricingSectionProps> = ({ scrollY }) => {
     }
   ];
 
+  // Valores originais da consultoria online
+  const valoresOnline = {
+    mensal: 150,
+    bimestral: 270,
+    trimestral: 350
+  };
+
+  // Função para calcular desconto
+  const aplicarDesconto = (valor: number, cupomValido: boolean) => {
+    if (cupomValido) {
+      return (valor * 0.95).toFixed(2).replace('.', ',');
+    }
+    return valor.toFixed(2).replace('.', ',');
+  };
+
+  // Mensagem WhatsApp para Consultoria Online
+  const getMensagemOnline = () => {
+    if (!showOnline) return '';
+    const valor = valoresOnline[showOnline as keyof typeof valoresOnline];
+    const valorFinal = aplicarDesconto(valor, cupomOnlineValido);
+    let msg = `Olá, gostaria de contratar a Consultoria Online (${showOnline}) por R$ ${valorFinal}`;
+    if (cupomOnlineValido) {
+      msg += ' usando o cupom de desconto oshirogym';
+    }
+    return encodeURIComponent(msg);
+  };
+
+  // Mensagem WhatsApp para Personal Trainer
+  const getMensagemPersonal = () => {
+    let msg = 'Olá, gostaria de saber mais sobre o plano Personal Trainer';
+    if (cupomPersonalValido) {
+      msg += ' e quero utilizar o cupom de desconto oshirogym';
+    }
+    return encodeURIComponent(msg);
+  };
+
   return (
     <section id="pricing" className="py-20 bg-white">
       <div className="container mx-auto px-4">
@@ -78,71 +122,95 @@ const PricingSection: React.FC<PricingSectionProps> = ({ scrollY }) => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          {plans.map((plan, index) => (
-            <div 
-              key={index}
-              className={`transition-all duration-1000 delay-${index * 200} transform ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'}`}
-            >
-              <div 
-                className={`relative rounded-xl overflow-hidden shadow-lg transition-all duration-500 transform h-full ${hoveredCard === index ? 'scale-105' : ''}`}
-                onMouseEnter={() => setHoveredCard(index)}
-                onMouseLeave={() => setHoveredCard(null)}
-              >
-                <div className={`bg-gradient-to-r ${hoveredCard === index ? plan.hoverColor : plan.color} p-8 text-white h-full flex flex-col`}>
-                  {plan.popular && (
-                    <div className="absolute top-0 right-0 bg-primary-dark text-white text-xs font-bold px-3 py-1 transform translate-x-8 translate-y-4 rotate-45">
-                      POPULAR
-                    </div>
-                  )}
-                  <h3 className="text-2xl font-bold mb-2">{plan.title}</h3>
-                  <div className="text-4xl font-bold mb-2">{plan.price}<span className="text-sm font-normal">/mês</span></div>
-                  <div className="text-lg mb-6">{plan.sessions}</div>
-                  
-                  <ul className="mb-8 flex-grow">
-                    {allFeatures.map((feature, i) => {
-                      const isIncluded = plan.features[feature];
-                      const isHighlighted = hoveredCard === index && isIncluded;
-                      
-                      return (
-                        <li 
-                          key={i} 
-                          className={`flex items-center mb-3 transition-all duration-300 ${
-                            isHighlighted ? 'transform scale-105 pl-2' : ''
-                          }`}
-                        >
-                          {isIncluded ? (
-                            <Check className={`w-5 h-5 mr-2 ${isHighlighted ? 'text-primary-light animate-pulse' : 'text-white'}`} />
-                          ) : (
-                            <X className="w-5 h-5 mr-2 text-gray-400" />
-                          )}
-                          <span className={isIncluded ? (isHighlighted ? "text-primary-light font-bold" : "text-white") : "text-gray-400"}>
-                            {feature}
-                          </span>
-                        </li>
-                      );
-                    })}
-                  </ul>
-                  
-                  <a 
-                    href={`https://wa.me/5511933329215?text=Olá,%20gostaria%20de%20saber%20mais%20sobre%20o%20plano%20${plan.title}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={`weight-plate-btn block w-full py-3 px-6 text-center rounded-full ${index === 1 ? 'bg-primary text-white' : 'bg-white text-dark'} font-bold transition-all transform hover:scale-105 mt-auto ${
-                      hoveredCard === index ? 'animate-pulse' : ''
-                    }`}
-                  >
-                    <div className="flex items-center justify-center">
-                      {hoveredCard === index ? (
-                        <Dumbbell className="animate-spin" size={20} />
-                      ) : (
-                        "COMEÇAR AGORA"
-                      )}
-                    </div>
-                  </a>
-                </div>
-              </div>
+          {/* Consultoria Online */}
+          <div className="rounded-xl overflow-hidden shadow-lg bg-gradient-to-r from-primary-light to-primary p-8 flex flex-col items-center">
+            <h3 className="text-2xl font-bold mb-2 text-white">Consultoria Online</h3>
+            <p className="text-white mb-4 text-center">Acompanhamento à distância, com treinos personalizados e suporte online.</p>
+            <div className="flex flex-col gap-2 w-full mb-6">
+              <button onClick={() => setShowOnline('mensal')} className={`w-full py-2 rounded font-bold transition-all ${showOnline === 'mensal' ? 'bg-white text-primary' : 'bg-primary-dark text-white'} hover:bg-white hover:text-primary`}>Mensal</button>
+              <button onClick={() => setShowOnline('bimestral')} className={`w-full py-2 rounded font-bold transition-all ${showOnline === 'bimestral' ? 'bg-white text-primary' : 'bg-primary-dark text-white'} hover:bg-white hover:text-primary`}>Bimestral</button>
+              <button onClick={() => setShowOnline('trimestral')} className={`w-full py-2 rounded font-bold transition-all ${showOnline === 'trimestral' ? 'bg-white text-primary' : 'bg-primary-dark text-white'} hover:bg-white hover:text-primary`}>Trimestral</button>
             </div>
-          ))}
+            {/* Campo de cupom */}
+            <input
+              type="text"
+              placeholder="Cupom de desconto"
+              className="w-full mb-2 px-3 py-2 rounded text-primary font-bold text-center"
+              value={cupomOnline}
+              onChange={e => {
+                setCupomOnline(e.target.value);
+                setCupomOnlineValido(e.target.value.trim().toLowerCase() === 'oshirogym');
+              }}
+            />
+            {cupomOnline && (
+              <div className={`mb-2 text-sm font-bold ${cupomOnlineValido ? 'text-green-200' : 'text-red-200'}`}>{cupomOnlineValido ? 'Cupom aplicado!' : 'Cupom inválido'}</div>
+            )}
+            {/* Valores com desconto */}
+            {showOnline && (
+              <div className="text-white text-lg font-bold mb-2">
+                {showOnline.charAt(0).toUpperCase() + showOnline.slice(1)}: R$ {aplicarDesconto(valoresOnline[showOnline as keyof typeof valoresOnline], cupomOnlineValido)}
+              </div>
+            )}
+            {/* Botão WhatsApp */}
+            {showOnline && (
+              <a
+                href={`https://wa.me/5511933329215?text=${getMensagemOnline()}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-6 rounded-full transition-all mt-2"
+              >
+                <MessageCircle size={20} /> Finalizar no WhatsApp
+              </a>
+            )}
+          </div>
+
+          {/* Personal Trainer */}
+          <div className="rounded-xl overflow-hidden shadow-lg bg-gradient-to-r from-dark-light to-dark p-8 flex flex-col items-center">
+            <h3 className="text-2xl font-bold mb-2 text-white">Personal Trainer</h3>
+            <p className="text-white mb-4 text-center">Atendimento presencial e acompanhamento individualizado.</p>
+            <div className="text-white text-lg font-bold mb-6">Valores a consultar</div>
+            {/* Campo de cupom */}
+            <input
+              type="text"
+              placeholder="Cupom de desconto"
+              className="w-full mb-2 px-3 py-2 rounded text-primary font-bold text-center"
+              value={cupomPersonal}
+              onChange={e => {
+                setCupomPersonal(e.target.value);
+                setCupomPersonalValido(e.target.value.trim().toLowerCase() === 'oshirogym');
+              }}
+            />
+            {cupomPersonal && (
+              <div className={`mb-2 text-sm font-bold ${cupomPersonalValido ? 'text-green-200' : 'text-red-200'}`}>{cupomPersonalValido ? 'Cupom será informado no WhatsApp!' : 'Cupom inválido'}</div>
+            )}
+            <a
+              href={`https://wa.me/5511933329215?text=${getMensagemPersonal()}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-6 rounded-full transition-all mt-2"
+            >
+              <MessageCircle size={20} /> Fale no WhatsApp
+            </a>
+          </div>
+
+          {/* Treinamento Funcional */}
+          <div className="rounded-xl overflow-hidden shadow-lg bg-gradient-to-r from-primary-dark to-primary p-8 flex flex-col items-center">
+            <h3 className="text-2xl font-bold mb-2 text-white">Treinamento Funcional</h3>
+            <p className="text-white mb-2 text-center">Datas e Horários:</p>
+            <ul className="text-white text-center mb-4">
+              <li>Segunda, quarta e sexta</li>
+              <li>19:30 às 20:30</li>
+            </ul>
+            <p className="text-white mb-2 text-center">O valor é cobrado mensalmente, via PIX ou crédito</p>
+            <div className="flex flex-col gap-2 w-full mb-6">
+              <button onClick={() => setShowFuncional('3x')} className={`w-full py-2 rounded font-bold transition-all ${showFuncional === '3x' ? 'bg-white text-primary' : 'bg-primary-dark text-white'} hover:bg-white hover:text-primary`}>3x na semana</button>
+              <button onClick={() => setShowFuncional('2x')} className={`w-full py-2 rounded font-bold transition-all ${showFuncional === '2x' ? 'bg-white text-primary' : 'bg-primary-dark text-white'} hover:bg-white hover:text-primary`}>2x na semana</button>
+              <button onClick={() => setShowFuncional('1x')} className={`w-full py-2 rounded font-bold transition-all ${showFuncional === '1x' ? 'bg-white text-primary' : 'bg-primary-dark text-white'} hover:bg-white hover:text-primary`}>1x na semana</button>
+            </div>
+            {showFuncional === '3x' && <div className="text-white text-lg font-bold mb-2">3x na semana: R$ 119,90</div>}
+            {showFuncional === '2x' && <div className="text-white text-lg font-bold mb-2">2x na semana: R$ 99,90</div>}
+            {showFuncional === '1x' && <div className="text-white text-lg font-bold mb-2">1x na semana: R$ 79,90</div>}
+          </div>
         </div>
       </div>
     </section>

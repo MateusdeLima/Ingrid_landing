@@ -29,9 +29,9 @@ const HeroSection = () => {
         </p>
       </div>
       
-      <div className="absolute bottom-10 left-0 right-0 flex justify-center animate-bounce">
-        <a href="#about" className="w-10 h-10 border-2 border-primary rounded-full flex items-center justify-center">
-          <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <div className="absolute bottom-6 sm:bottom-10 left-0 right-0 flex justify-center animate-bounce">
+        <a href="#about" className="w-9 h-9 sm:w-10 sm:h-10 border-2 border-primary rounded-full flex items-center justify-center bg-white/10 backdrop-blur-md shadow-md">
+          <svg className="w-5 h-5 sm:w-6 sm:h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
           </svg>
         </a>
