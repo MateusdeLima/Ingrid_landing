@@ -53,7 +53,7 @@ const Footer = () => {
                 <span className="text-sm font-medium group-hover:text-white">WhatsApp</span>
               </a>
               <a 
-                href="https://instagram.com/ingridlemos"
+                href="https://instagram.com/di_leemos"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="bg-gray-100 hover:bg-gradient-to-r from-purple-500 to-pink-500 p-2.5 rounded-full transition-all duration-300 transform hover:scale-110 group flex items-center gap-2"

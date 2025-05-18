@@ -41,6 +41,8 @@ const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({ scrollY }) =>
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [autoplay, setAutoplay] = useState(true);
+  const [touchStartX, setTouchStartX] = useState<number | null>(null);
+  const [touchEndX, setTouchEndX] = useState<number | null>(null);
 
   useEffect(() => {
     let interval: number | null = null;
@@ -66,6 +68,21 @@ const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({ scrollY }) =>
     setCurrentIndex((prevIndex) => (prevIndex + 1) % testimonials.length);
   };
 
+  const handleTouchEnd = () => {
+    if (touchStartX !== null && touchEndX !== null) {
+      const diff = touchStartX - touchEndX;
+      if (Math.abs(diff) > 50) {
+        if (diff > 0) {
+          handleNext();
+        } else {
+          handlePrev();
+        }
+      }
+    }
+    setTouchStartX(null);
+    setTouchEndX(null);
+  };
+
   return (
     <section id="testimonials" className="py-20 bg-white">
       <div className="container mx-auto px-4">
@@ -78,7 +95,12 @@ const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({ scrollY }) =>
           </p>
         </div>
 
-        <div className={`relative max-w-4xl mx-auto transition-all duration-1000 delay-300 transform ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'}`}>
+        <div 
+          className={`relative max-w-4xl mx-auto transition-all duration-1000 delay-300 transform ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'}`}
+          onTouchStart={e => setTouchStartX(e.touches[0].clientX)}
+          onTouchMove={e => setTouchEndX(e.touches[0].clientX)}
+          onTouchEnd={handleTouchEnd}
+        >
           <div className="overflow-hidden">
             <div 
               className="flex transition-transform duration-500 ease-in-out"

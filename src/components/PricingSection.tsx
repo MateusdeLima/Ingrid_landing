@@ -162,7 +162,7 @@ const PricingSection: React.FC<PricingSectionProps> = ({ scrollY }) => {
                 <MessageCircle size={20} /> Finalizar no WhatsApp
               </a>
             )}
-          </div>
+                    </div>
 
           {/* Personal Trainer */}
           <div className="rounded-xl overflow-hidden shadow-lg bg-gradient-to-r from-dark-light to-dark p-8 flex flex-col items-center">
@@ -183,15 +183,15 @@ const PricingSection: React.FC<PricingSectionProps> = ({ scrollY }) => {
             {cupomPersonal && (
               <div className={`mb-2 text-sm font-bold ${cupomPersonalValido ? 'text-green-200' : 'text-red-200'}`}>{cupomPersonalValido ? 'Cupom será informado no WhatsApp!' : 'Cupom inválido'}</div>
             )}
-            <a
+                  <a 
               href={`https://wa.me/5511933329215?text=${getMensagemPersonal()}`}
-              target="_blank"
-              rel="noopener noreferrer"
+                    target="_blank"
+                    rel="noopener noreferrer"
               className="flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-6 rounded-full transition-all mt-2"
             >
               <MessageCircle size={20} /> Fale no WhatsApp
-            </a>
-          </div>
+                  </a>
+                </div>
 
           {/* Treinamento Funcional */}
           <div className="rounded-xl overflow-hidden shadow-lg bg-gradient-to-r from-primary-dark to-primary p-8 flex flex-col items-center">
@@ -210,6 +210,16 @@ const PricingSection: React.FC<PricingSectionProps> = ({ scrollY }) => {
             {showFuncional === '3x' && <div className="text-white text-lg font-bold mb-2">3x na semana: R$ 119,90</div>}
             {showFuncional === '2x' && <div className="text-white text-lg font-bold mb-2">2x na semana: R$ 99,90</div>}
             {showFuncional === '1x' && <div className="text-white text-lg font-bold mb-2">1x na semana: R$ 79,90</div>}
+            {showFuncional && (
+              <a
+                href={`https://wa.me/5511933329215?text=${encodeURIComponent(`Olá, tenho interesse no Treinamento Funcional (${showFuncional} na semana) por R$ ${showFuncional === '3x' ? '119,90' : showFuncional === '2x' ? '99,90' : '79,90'}!`)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-6 rounded-full transition-all mt-2"
+              >
+                <MessageCircle size={20} /> Fale no WhatsApp
+              </a>
+            )}
           </div>
         </div>
       </div>

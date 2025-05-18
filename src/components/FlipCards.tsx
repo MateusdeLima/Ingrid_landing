@@ -89,7 +89,7 @@ const FlipCards: React.FC<FlipCardsProps> = ({ scrollY }) => {
                       <h3 className="text-2xl font-bold mb-4">{card.title}</h3>
                       <p className="mb-6">{card.description}</p>
                       <a 
-                        href={`https://wa.me/5500000000000?text=Olá,%20gostaria%20de%20saber%20mais%20sobre%20o%20serviço%20de%20${card.title}`}
+                        href={`https://wa.me/5511933329215?text=Olá,%20gostaria%20de%20saber%20mais%20sobre%20o%20serviço%20de%20${card.title}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="py-2 px-6 bg-primary text-white rounded-full font-bold transition-all transform hover:scale-105 flex items-center weight-plate-btn"
