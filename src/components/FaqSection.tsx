@@ -24,10 +24,6 @@ const FaqSection: React.FC<FaqSectionProps> = ({ scrollY }) => {
       answer: "Os primeiros resultados geralmente começam a aparecer entre 4-6 semanas, como melhora na disposição, resistência e pequenas mudanças estéticas. Resultados mais significativos de composição corporal costumam ser notados entre 8-12 semanas, seguindo o programa de treinos e as orientações nutricionais. Lembre-se que cada organismo responde de forma diferente e a consistência é fundamental."
     },
     {
-      question: "Você oferece orientação nutricional?",
-      answer: "Sim, ofereço orientações nutricionais básicas como parte dos planos intermediário e avançado. São dicas práticas para otimizar seus resultados. Para casos que necessitam de acompanhamento mais específico, trabalho em parceria com nutricionistas especializados e posso fazer a indicação."
-    },
-    {
       question: "Onde são realizados os treinos?",
       answer: "Os treinos podem ser realizados em academias parceiras, na sua residência (se tiver equipamentos básicos) ou ao ar livre em parques. Durante nossa consulta inicial, discutiremos a melhor opção de acordo com sua preferência, objetivos e localização."
     }

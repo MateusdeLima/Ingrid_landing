@@ -30,11 +30,11 @@ const Footer = () => {
             <h4 className="text-xl font-bold mb-4 text-primary">Entre em contato comigo</h4>
             <div className="space-y-3 w-full max-w-xs mb-4">
               <a 
-                href="mailto:ingrid.lemos@email.com"
+                href="mailto:ingridlemos_23@hotmail.com"
                 className="flex items-center justify-center gap-2 hover:text-primary transition-colors"
               >
                 <Mail size={18} className="text-primary" />
-                <span>ingrid.lemos@email.com</span>
+                <span>ingridlemos_23@hotmail.com</span>
               </a>
               <div className="flex items-center justify-center gap-2">
                 <MapPin size={18} className="text-primary" />
