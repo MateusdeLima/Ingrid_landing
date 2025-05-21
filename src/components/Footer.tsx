@@ -6,6 +6,16 @@ const Footer = () => {
   const whatsappNumber = "5511933329215";
   const whatsappMessage = encodeURIComponent("Olá! Gostaria de saber mais sobre seus serviços de personal trainer.");
 
+  // Função utilitária para abrir WhatsApp
+  const openWhatsApp = (phone: string, msg: string) => {
+    const urlApp = `whatsapp://send?phone=${phone}&text=${encodeURIComponent(msg)}`;
+    const urlWeb = `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`;
+    window.location.href = urlApp;
+    setTimeout(() => {
+      window.open(urlWeb, '_blank');
+    }, 1000);
+  };
+
   return (
     <footer className="bg-white text-dark relative">
       {/* Decorative Top Border */}
@@ -42,18 +52,17 @@ const Footer = () => {
               </div>
             </div>
             <div className="flex gap-4 justify-center items-center">
-              <a 
-                href={`https://wa.me/${whatsappNumber}?text=${whatsappMessage}`}
-                target="_blank"
-                rel="noopener noreferrer"
+              <button
+                type="button"
+                onClick={() => openWhatsApp(whatsappNumber, 'Olá! Gostaria de saber mais sobre seus serviços de personal trainer.')}
                 className="bg-gray-100 hover:bg-green-500 p-2.5 rounded-full transition-all duration-300 transform hover:scale-110 group flex items-center gap-2"
                 aria-label="WhatsApp"
               >
                 <MessageCircle size={20} className="text-dark group-hover:text-white" />
                 <span className="text-sm font-medium group-hover:text-white">WhatsApp</span>
-              </a>
+              </button>
               <a 
-                href="https://instagram.com/ingridlemos"
+                href="https://www.instagram.com/di_leemos?igsh=MXg5Z2xyYWduNWpjdg=="
                 target="_blank"
                 rel="noopener noreferrer"
                 className="bg-gray-100 hover:bg-gradient-to-r from-purple-500 to-pink-500 p-2.5 rounded-full transition-all duration-300 transform hover:scale-110 group flex items-center gap-2"

@@ -33,7 +33,7 @@ const FlipCards: React.FC<FlipCardsProps> = ({ scrollY }) => {
       title: "Terceira Idade",
       description: "Exercícios adaptados para melhorar a qualidade de vida, mobilidade e independência de idosos.",
       icon: "🌟",
-      bgImage: "https://images.unsplash.com/photo-1571019613576-2b22c76fd955?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+      bgImage: "https://fly.metroimg.com/upload/q_85,w_700/https://uploads.metroimg.com/wp-content/uploads/2024/07/20125204/Musculacao-de-idosos.jpg"
     }
   ];
 
@@ -88,16 +88,26 @@ const FlipCards: React.FC<FlipCardsProps> = ({ scrollY }) => {
                     <div className="flex flex-col items-center justify-between h-full text-white p-6 text-center">
                       <h3 className="text-2xl font-bold mb-4">{card.title}</h3>
                       <p className="mb-6">{card.description}</p>
-                      <a 
-                        href={`https://wa.me/5500000000000?text=Olá,%20gostaria%20de%20saber%20mais%20sobre%20o%20serviço%20de%20${card.title}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
+                      <button
+                        type="button"
                         className="py-2 px-6 bg-primary text-white rounded-full font-bold transition-all transform hover:scale-105 flex items-center weight-plate-btn"
-                        onClick={(e) => e.stopPropagation()}
+                        onClick={e => {
+                          e.stopPropagation();
+                          const phone = '5511933329215';
+                          const msg = `Olá, gostaria de saber mais sobre o serviço de ${card.title}`;
+                          const urlApp = `whatsapp://send?phone=${phone}&text=${encodeURIComponent(msg)}`;
+                          const urlWeb = `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`;
+                          // Tenta abrir o app
+                          window.location.href = urlApp;
+                          // Depois de 1s, abre o web caso não tenha app
+                          setTimeout(() => {
+                            window.open(urlWeb, '_blank');
+                          }, 1000);
+                        }}
                       >
                         SAIBA MAIS
                         <Dumbbell className="ml-2" size={16} />
-                      </a>
+                      </button>
                     </div>
                   </div>
                 </div>
