@@ -88,69 +88,49 @@ const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({ scrollY }) =>
       <div className="container mx-auto px-4">
         <div className={`transition-all duration-1000 transform ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'}`}>
           <h2 className="text-4xl font-bold text-center mb-4">
-            <span className="text-primary">DEPOIMENTOS</span> DE ALUNOS
+            <span className="text-primary">AVALIAÇÕES</span> NO GOOGLE
           </h2>
           <p className="text-gray-600 text-center max-w-2xl mx-auto mb-16">
-            Veja o que nossos alunos têm a dizer sobre sua experiência e resultados obtidos
+            Confira as avaliações reais dos nossos clientes no Google Business Profile
           </p>
         </div>
 
-        <div 
+        <div
           className={`relative max-w-4xl mx-auto transition-all duration-1000 delay-300 transform ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'}`}
-          onTouchStart={e => setTouchStartX(e.touches[0].clientX)}
-          onTouchMove={e => setTouchEndX(e.touches[0].clientX)}
-          onTouchEnd={handleTouchEnd}
+          // onTouchStart={e => setTouchStartX(e.touches[0].clientX)}
+          // onTouchMove={e => setTouchEndX(e.touches[0].clientX)}
+          // onTouchEnd={handleTouchEnd}
         >
-          <div className="overflow-hidden">
-            <div 
-              className="flex transition-transform duration-500 ease-in-out"
-              style={{ transform: `translateX(-${currentIndex * 100}%)` }}
-            >
-              {testimonials.map((testimonial, index) => (
-                <div key={index} className="w-full flex-shrink-0 px-4">
-                  <div className="bg-gray-100 rounded-xl shadow-lg p-6 md:p-10 border-l-4 border-primary">
-                    <div className="flex flex-col md:flex-row items-center md:items-start mb-6">
-                      <img 
-                        src={testimonial.image} 
-                        alt={testimonial.name} 
-                        className="w-20 h-20 rounded-full object-cover mb-4 md:mb-0 md:mr-6 border-2 border-primary"
-                      />
-                      <div>
-                        <div className="flex mb-2">
-                          {[...Array(5)].map((_, i) => (
-                            <Star 
-                              key={i} 
-                              size={18} 
-                              className={i < testimonial.stars ? "text-primary fill-current" : "text-gray-300"}
-                            />
-                          ))}
-                        </div>
-                        <h3 className="text-xl font-bold text-dark">{testimonial.name}</h3>
-                        <p className="text-gray-600">{testimonial.role}</p>
-                      </div>
-                    </div>
-                    <p className="text-gray-700 italic text-lg leading-relaxed">"{testimonial.text}"</p>
-                  </div>
-                </div>
-              ))}
+          <div className="flex flex-col md:flex-row items-center bg-gray-100 rounded-xl shadow-lg p-6 md:p-10 border-l-4 border-primary">
+            <div className="flex-shrink-0 mr-8">
+              <img src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png" alt="Google Logo" className="w-24" />
+            </div>
+            <div className="flex-grow">
+              <div className="flex mb-2">
+                {[...Array(5)].map((_, i) => (
+                  <Star
+                    key={i}
+                    size={18}
+                    className="text-primary fill-current"
+                  />
+                ))}
+              </div>
+              <h3 className="text-xl font-bold text-dark">Avaliações Reais</h3>
+              <p className="text-gray-600 mb-4">Google Business Profile</p>
+              <p className="text-gray-700 italic text-lg leading-relaxed">
+                "Veja as avaliações reais dos nossos clientes no Google Business Profile. Nossos alunos
+                compartilham suas experiências e resultados obtidos através do treinamento personalizado"
+              </p>
+              <a
+                href="https://g.co/kgs/z6wJJyx"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 mt-6 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-full transition-all"
+              >
+                Ver Avaliações no Google <ChevronRight size={20} />
+              </a>
             </div>
           </div>
-          
-          <button 
-            onClick={handlePrev}
-            className="absolute top-1/2 left-0 transform -translate-y-1/2 -translate-x-5 bg-white rounded-full p-2 shadow-lg text-primary hover:text-primary-dark focus:outline-none transition-colors weight-plate-btn"
-            aria-label="Previous testimonial"
-          >
-            <ChevronLeft size={24} />
-          </button>
-          
-          <button 
-            onClick={handleNext}
-            className="absolute top-1/2 right-0 transform -translate-y-1/2 translate-x-5 bg-white rounded-full p-2 shadow-lg text-primary hover:text-primary-dark focus:outline-none transition-colors weight-plate-btn"
-            aria-label="Next testimonial"
-          >
-            <ChevronRight size={24} />
-          </button>
         </div>
       </div>
     </section>
