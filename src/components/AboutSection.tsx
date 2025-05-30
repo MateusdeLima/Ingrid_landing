@@ -1,5 +1,6 @@
 import React from 'react';
 import { Award, Clock, Users } from 'lucide-react';
+import perfilImage from '../imagens/perfil.jpg';
 
 interface AboutSectionProps {
   scrollY: number;
@@ -21,7 +22,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({ scrollY }) => {
         <div className="flex flex-col md:flex-row items-center md:items-start gap-8 md:gap-0">
           <div className={`w-full md:w-1/2 mb-6 md:mb-0 transition-all duration-1000 delay-300 transform ${isVisible ? 'translate-x-0 opacity-100' : '-translate-x-20 opacity-0'}`}> 
             <img 
-              src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1950&q=80" 
+              src={perfilImage}
               alt="Personal Trainer" 
               className="rounded-lg shadow-xl w-full max-w-md mx-auto border-4 border-primary object-cover" 
             />

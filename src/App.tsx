@@ -49,7 +49,7 @@ function App() {
     { id: 'about', icon: <Info size={20} />, label: 'Sobre' },
     { id: 'pricing', icon: <DollarSign size={20} />, label: 'Planos' },
     { id: 'services', icon: <Briefcase size={20} />, label: 'Serviços' },
-    { id: 'testimonials', icon: <MessageSquare size={20} />, label: 'Depoimentos' },
+    { id: 'testimonials', icon: <MessageSquare size={20} />, label: 'Avaliações' },
     { id: 'faq', icon: <HelpCircle size={20} />, label: 'FAQ' }
   ];
 

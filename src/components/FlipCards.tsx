@@ -33,7 +33,7 @@ const FlipCards: React.FC<FlipCardsProps> = ({ scrollY }) => {
       title: "Terceira Idade",
       description: "Exercícios adaptados para melhorar a qualidade de vida, mobilidade e independência de idosos.",
       icon: "🌟",
-      bgImage: "https://images.unsplash.com/photo-1571019613576-2b22c76fd955?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+      bgImage: "https://fly.metroimg.com/upload/q_85,w_700/https://uploads.metroimg.com/wp-content/uploads/2024/07/20125204/Musculacao-de-idosos.jpg"
     }
   ];
 
